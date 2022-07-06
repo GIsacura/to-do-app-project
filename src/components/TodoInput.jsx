@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setFilter } from '../features/todos';
+import { set } from '../features/filter/filterSlice';
+import { add } from '../features/todo/todoSlice';
 import styled from 'styled-components';
 
 const InputContainer = styled.section`
@@ -49,7 +50,7 @@ const TodoInput = () => {
 
     const id = Math.random().toString(36)
     const todo = { title: value, completed: false, id }
-    dispatch({ type: 'todo/add', payload: todo })
+    dispatch(add(todo))
     setValue('')
 
     // if(status.loading === 'pending'){
@@ -66,10 +67,10 @@ const TodoInput = () => {
         <SubmitButton type='submit'>Send</SubmitButton>
       </Form>
       <ButtonContainer>
-        <button onClick={() => dispatch(setFilter('all'))}>All</button>
-        <button onClick={() => dispatch(setFilter('complete'))}>Completed</button>
-        <button onClick={() => dispatch(setFilter('incomplete'))}>Incompleted</button>
-        <button onClick={() => localStorage.setItem("Todo's",JSON.stringify(state.todos.entities))}>Save</button>
+        <button onClick={() => dispatch(set('all'))}>All</button>
+        <button onClick={() => dispatch(set('complete'))}>Completed</button>
+        <button onClick={() => dispatch(set('incomplete'))}>Incompleted</button>
+        <button onClick={() => localStorage.setItem("Todo's",JSON.stringify(state.todo))}>Save</button>
       </ButtonContainer>
     </InputContainer>
   );

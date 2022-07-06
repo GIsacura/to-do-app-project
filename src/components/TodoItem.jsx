@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { setComplete, setDelete, setEdit } from '../features/todos';
+import { complete, deleted, edit } from '../features/todo/todoSlice';
 import styled from 'styled-components';
 
 const Title = styled.span`
@@ -22,7 +22,7 @@ const TodoItem = ({todo}) => {
 
   const submitTitle = (e) =>{
     e.preventDefault()
-    dispatch(setEdit({todo, value}))
+    dispatch(edit({todo, value}))
     setEditTitle(false)
   }
 
@@ -35,7 +35,7 @@ const TodoItem = ({todo}) => {
       <Title>
         {
           !editTitle
-            ? <span onClick={() => dispatch(setComplete(todo))}>{todo.title}</span>
+            ? <span onClick={() => dispatch(complete(todo))}>{todo.title}</span>
             :<form onSubmit={submitTitle}>
               <input value={value} onChange={(event) => setValue(event.target.value)}/>
               <button type='submit'>ok</button>
@@ -44,7 +44,7 @@ const TodoItem = ({todo}) => {
       </Title>
       <span>
         <button onClick={() => setEditTitle(!editTitle)}>edit</button>
-        <button onClick={() => dispatch(setDelete(todo))}>delete</button>
+        <button onClick={() => dispatch(deleted(todo))}>delete</button>
       </span>
     </Todo>
   )
